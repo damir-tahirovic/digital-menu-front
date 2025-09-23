@@ -1,0 +1,162 @@
+.order-place-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.order-place-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.order-place-image-container {
+    height: 120px;
+    background: linear-gradient(180deg, #2d5016 0%, #4CAF50 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.order-place-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.location-icon {
+    font-size: 2.5rem;
+    color: white;
+    z-index: 1;
+    position: relative;
+    drop-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.order-place-content {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    gap: 12px;
+}
+
+.order-place-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.order-place-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.order-place-code {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+    font-family: monospace;
+    background: #f3f4f6;
+    padding: 4px 8px;
+    border-radius: 6px;
+    align-self: flex-start;
+}
+
+.qr-code-btn {
+    background: linear-gradient(180deg, #2d5016 0%, #4CAF50 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 12px; /* increased from 8px */
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.6rem; /* increased from 1.2rem */
+    min-width: 50px; /* increased from 36px */
+    height: 50px; /* increased from 36px */
+}
+
+.qr-code-btn:hover {
+    transform: scale(1.05);
+}
+
+.qr-code-btn:active {
+    transform: scale(0.95);
+}
+
+.role-div{
+    background: linear-gradient(180deg, #2d5016 0%, #4CAF50 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.0rem;
+    min-width: 20px;
+    height: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .order-place-card {
+        border-radius: 8px;
+    }
+
+    .order-place-image-container {
+        height: 100px;
+    }
+
+    .location-icon {
+        font-size: 2rem;
+    }
+
+    .order-place-content {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .order-place-name {
+        font-size: 1rem;
+    }
+
+    .order-place-code {
+        font-size: 0.8rem;
+    }
+
+    .qr-code-btn {
+        font-size: 1.2rem; /* increased from 1rem */
+        min-width: 40px; /* increased from 32px */
+        height: 40px; /* increased from 32px */
+        padding: 8px; /* increased from 6px */
+    }
+}
+
+/* Animation for icon */
+.order-place-card:hover .location-icon {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}

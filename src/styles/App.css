@@ -1,0 +1,74 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    margin: 0 auto;
+    width: 30%;
+    background-color: white;
+    padding: 0 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 16px rgba(60, 72, 88, 0.35);
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Dashboard layout - full width */
+.app-container.dashboard-layout {
+    width: 100%;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* Dashboard wrapper - full width */
+.dashboard-wrapper {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+/* Dashboard content container - full width */
+.dashboard-layout .content-container {
+    width: 100%;
+    justify-content: stretch;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .app-container {
+        width: 100%;
+        padding: 0 15px;
+        border: none;
+        box-shadow: none;
+    }
+
+    .app-container.dashboard-layout {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        padding: 0 10px;
+    }
+
+    .app-container.dashboard-layout {
+        padding: 0;
+    }
+}

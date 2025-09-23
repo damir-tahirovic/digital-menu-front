@@ -1,0 +1,30 @@
+.main-category-container {
+    padding: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Promijeni sa flex-start */
+    gap: 16px;
+    width: 100%; /* Dodaj ovo */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .main-category-container {
+        padding: 15px 0;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-category-container {
+        padding: 12px 0;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .main-category-container {
+        padding: 10px 0;
+        gap: 8px;
+    }
+}

@@ -1,0 +1,132 @@
+.navbar-container {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: white;
+    color: black;
+    font-size: 26px;
+    border-bottom: 1px solid #ccc;
+}
+
+.navbar-title {
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 20px;
+}
+
+.navbar-side {
+    flex-shrink: 0;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.basket-btn {
+    background: none;
+    color: black;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.basket-btn:hover {
+    background-color: #f0f8f0;
+    transform: scale(1.1);
+}
+
+.basket-btn:active {
+    transform: scale(0.95);
+}
+
+.back-btn {
+    background: none;
+    color: black;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+}
+
+.back-btn:hover {
+    transform: scale(1.05);
+}
+
+.home-btn {
+    background: none;
+    color: black;
+    font-size: 40px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+}
+
+.home-btn:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .navbar-container {
+        padding: 15px 10px;
+        font-size: 22px;
+    }
+
+    .navbar-title {
+        padding: 0 10px;
+    }
+
+    .navbar-side {
+        width: 50px;
+    }
+
+    .basket-btn,
+    .back-btn,
+    .home-btn {
+        font-size: 36px;
+        padding: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 12px 8px;
+        font-size: 20px;
+    }
+
+    .navbar-title {
+        padding: 0 8px;
+    }
+
+    .navbar-side {
+        width: 44px;
+    }
+
+    .basket-btn,
+    .back-btn,
+    .home-btn {
+        font-size: 32px;
+        padding: 4px;
+    }
+}

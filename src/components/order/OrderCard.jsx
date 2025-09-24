@@ -1,9 +1,9 @@
-// src/components/order/OrderCard.jsx
 import React, { useState } from 'react';
 import '../../styles/OrderCard.css';
 import { FaReceipt, FaClock, FaCheckCircle, FaCog } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import OrderDetails from './OrderDetails';
+import cookies from 'js-cookie';
 
 const OrderCard = ({ order, onTakeOrder}) => {
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
@@ -77,7 +77,7 @@ const OrderCard = ({ order, onTakeOrder}) => {
 
                     <div className="order-details">
                         <div className="order-items-summary">
-                            <span className="items-count">{totalItems} stavki</span>
+                            <span className="items-count">{totalItems} artikala</span>
                             <div className="items-list">
                                 {order.order_item_types?.slice(0, 2).map((orderItem, index) => (
                                     <span key={orderItem.id} className="item-preview">
@@ -105,6 +105,7 @@ const OrderCard = ({ order, onTakeOrder}) => {
                 isOpen={isDetailsModalOpen}
                 onClose={() => setIsDetailsModalOpen(false)}
                 order={order}
+                userRole={cookies.get("role") ?? null}
                 onTakeOrder={onTakeOrder}
             />
         </>

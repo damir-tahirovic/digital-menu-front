@@ -12,7 +12,7 @@ const Basket = ({ isOpen, onClose }) => {
     const total = basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const handleCheckout = async () => {
-        const orderPlaceCode = Cookies.get('order_place_code'); // Retrieve from cookies
+        const orderPlaceCode = Cookies.get('order_place_code');
         if (!orderPlaceCode) {
             alert('Kod mjesta narudžbe nije pronađen. Molimo skenirajte QR kod.');
             return;
@@ -30,7 +30,7 @@ const Basket = ({ isOpen, onClose }) => {
         try {
             const order = await createOrder(orderData);
             console.log('Order created successfully:', order);
-            clearBasket(); // Clear the basket after successful order
+            clearBasket();
             alert('Narudžba je uspješno kreirana!');
         } catch (error) {
             alert('Greška prilikom kreiranja narudžbe: ' + (error.response?.data || error.message));
@@ -39,10 +39,7 @@ const Basket = ({ isOpen, onClose }) => {
 
     return (
         <>
-            {/* Overlay */}
             <div className={`basket-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}></div>
-
-            {/* Basket Sidebar */}
             <div className={`basket-sidebar ${isOpen ? 'open' : ''}`}>
                 <div className="basket-header">
                     <h3>Tvoja korpa</h3>

@@ -14,7 +14,7 @@ const ItemPage = ({ setNavbarTitle }) => {
     const [selectedItemType, setSelectedItemType] = useState(0);
     const [flyStyle, setFlyStyle] = useState(null);
 
-    const buttonRef = useRef(null); // 👈 referenca na dugme
+    const buttonRef = useRef(null);
 
     useEffect(() => {
         const fetchItem = async () => {
@@ -137,7 +137,6 @@ const ItemPage = ({ setNavbarTitle }) => {
                 <div>Loading...</div>
             )}
 
-            {/* Animacija leti iz dugmeta */}
             {flyStyle && (
                 <div
                     className="flying-indicator"

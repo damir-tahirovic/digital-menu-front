@@ -23,7 +23,6 @@ export const userUpdate = async (id, data) => {
 
 export const updateMyProfile = async (data) => {
     try {
-        // Koristi rutu koja odgovara backend ruti
         const response = await axiosInstance.put('/update-my-profile', data);
         return response.data;
     } catch (error) {

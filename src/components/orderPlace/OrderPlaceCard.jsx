@@ -13,13 +13,12 @@ const OrderPlaceCard = ({ orderPlace, onEdit }) => {
     };
 
     const handleQRCodeClick = async (e) => {
-        e.stopPropagation(); // Prevent triggering the card click
+        e.stopPropagation();
 
         try {
             const response = await axiosInstance.get(`${BASE_URL}/qr-code/generate-pdf?order_place_id=${orderPlace.id}`);
 
             if (response.data.url) {
-                // Open PDF in new tab
                 window.open(response.data.url, '_blank');
             }
         } catch (error) {

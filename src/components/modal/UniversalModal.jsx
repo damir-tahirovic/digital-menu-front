@@ -1,4 +1,3 @@
-// src/components/modal/UniversalModal.jsx
 import { useState, useEffect } from 'react';
 import '../../styles/UniversalModal.css';
 
@@ -204,7 +203,6 @@ const UniversalModal = ({
             errors.email = 'Email format nije valjan';
         }
 
-        // Validacija za tab promjene lozinke
         if (activeTab === 'password') {
             if (!formData.old_password) {
                 errors.old_password = 'Stara lozinka je obavezna';
@@ -343,7 +341,7 @@ const UniversalModal = ({
         const entityNames = {
             main_category: 'glavnu kategoriju',
             category: 'kategoriju',
-            item: 'stavku',
+            item: 'artikal',
             order_place: 'mjesto',
             user: 'korisnika'
         };
@@ -388,14 +386,14 @@ const UniversalModal = ({
                     className={`tab-button ${activeTab === 'item' ? 'active' : ''}`}
                     onClick={() => setActiveTab('item')}
                 >
-                    Stavka
+                    Artikal
                 </button>
                 <button
                     type="button"
                     className={`tab-button ${activeTab === 'types' ? 'active' : ''}`}
                     onClick={() => setActiveTab('types')}
                 >
-                    Tipovi stavke
+                    Tipovi artikala
                 </button>
             </div>
         );
@@ -512,8 +510,8 @@ const UniversalModal = ({
         return (
             <div className="item-types-container">
                 <div className="item-types-header">
-                    <h3>Tipovi stavke</h3>
-                    <p>Dodajte različite veličine/tipove za ovu stavku (npr. Mala pizza, Velika pizza)</p>
+                    <h3>Tipovi artikla</h3>
+                    <p>Dodajte različite veličine/tipove za ovaj artikal</p>
                 </div>
 
                 <div className="item-types-list">
@@ -741,7 +739,7 @@ const UniversalModal = ({
                         name="name"
                         value={formData.name || ''}
                         onChange={handleInputChange}
-                        placeholder="Unesite naziv stavke..."
+                        placeholder="Unesite naziv artikla..."
                         required
                     />
                 </div>
@@ -753,7 +751,7 @@ const UniversalModal = ({
                         name="description"
                         value={formData.description || ''}
                         onChange={handleInputChange}
-                        placeholder="Unesite opis stavke..."
+                        placeholder="Unesite opis artikla..."
                         rows={3}
                     />
                 </div>

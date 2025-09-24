@@ -44,3 +44,14 @@ export const takeOrder = async (orderId) => {
     }
 };
 
+export const completeOrder = async (orderId) => {
+    try {
+        const response = await axiosInstance.put(`${BASE_URL}/order/complete-order/${orderId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error completing order:', error.response?.data || error.message);
+        throw error;
+    }
+};
+
+

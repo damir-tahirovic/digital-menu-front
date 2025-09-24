@@ -31,7 +31,6 @@
     font-weight: bold;
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
     .main-category {
         font-size: 18px;

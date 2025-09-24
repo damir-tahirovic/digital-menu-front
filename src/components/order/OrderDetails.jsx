@@ -1,8 +1,7 @@
-// src/components/order/OrderDetails.jsx
 import React, { useState } from 'react';
 import { FaReceipt, FaClock, FaCheckCircle, FaCog, FaTimes } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
-import { takeOrder } from '../../api/services/app/OrderServices';
+import { takeOrder, completeOrder } from '../../api/services/app/OrderServices';
 import toast from "react-hot-toast";
 import '../../styles/OrderDetails.css';
 
@@ -73,10 +72,32 @@ const OrderDetails = ({ isOpen, onClose, order, userRole, onTakeOrder }) => {
 
             onClose();
         } catch (error) {
-            // Prikazujemo grešku iz API odgovora ili generičku poruku
             const errorMessage = error.response?.data?.message ||
                 error.response?.data ||
                 'Greška pri preuzimanju porudžbine';
+            toast.error(errorMessage);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleCompleteOrder = async () => {
+        if (isAdmin || isLoading) return;
+
+        setIsLoading(true);
+        try {
+            await completeOrder(order.id);
+            toast.success('Porudžbina je označena kao završena!');
+
+            if (onTakeOrder) {
+                onTakeOrder(order.id);
+            }
+
+            onClose();
+        } catch (error) {
+            const errorMessage = error.response?.data?.message ||
+                error.response?.data ||
+                'Greška pri završavanju porudžbine';
             toast.error(errorMessage);
         } finally {
             setIsLoading(false);
@@ -117,15 +138,17 @@ const OrderDetails = ({ isOpen, onClose, order, userRole, onTakeOrder }) => {
                             <div className="od-summary-info">
                                 <button
                                     className="od-take-order-btn"
-                                    onClick={handleTakeOrder}
-                                    disabled={isAdmin || isLoading || order.status !== 'pending'}
+                                    onClick={order.status === 'processing' ? handleCompleteOrder : handleTakeOrder}
+                                    disabled={isAdmin || isLoading || order.status === 'completed'}
                                 >
                                     {isLoading
-                                        ? 'Preuzimanje...'
+                                        ? order.status === 'processing'
+                                            ? 'Završavanje...'
+                                            : 'Preuzimanje...'
                                         : order.status === 'completed'
                                             ? 'Završeno'
                                             : order.status === 'processing'
-                                                ? 'U obradi'
+                                                ? 'Označi kao završeno'
                                                 : 'Preuzmi porudžbinu'
                                     }
                                 </button>
@@ -134,7 +157,7 @@ const OrderDetails = ({ isOpen, onClose, order, userRole, onTakeOrder }) => {
                     </div>
 
                     <div className="od-items-section">
-                        <h3 className="od-section-title">Stavke porudžbine</h3>
+                        <h3 className="od-section-title">Artikli porudžbine</h3>
                         <div className="od-items-list-detailed">
                             {order.order_item_types?.map((orderItem, index) => (
                                 <div key={orderItem.id} className="od-item-row">

@@ -1,7 +1,5 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
-// export const BASE_URL = "http://127.0.0.1:8000/api"
 export const BASE_URL = "http://192.168.1.101:8000/api"
 
 export const axiosInstance = axios.create({
@@ -11,7 +9,6 @@ export const axiosInstance = axios.create({
     },
 });
 
-// Request interceptor - dodaje token u svaki zahtjev
 axiosInstance.interceptors.request.use(
     (config) => {
         const token = Cookies.get('token');
@@ -25,12 +22,10 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-// Response interceptor - rukuje expired token-ima
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            // Token je expired ili invalid
             Cookies.remove('token');
             Cookies.remove('name');
             Cookies.remove('surname');
@@ -38,7 +33,6 @@ axiosInstance.interceptors.response.use(
             Cookies.remove('email');
             Cookies.remove('role');
 
-            // Preusmjeri na login stranicu ili refreshuj app
             window.location.href = '/login';
         }
         return Promise.reject(error);

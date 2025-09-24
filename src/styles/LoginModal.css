@@ -1,4 +1,3 @@
-/* src/components/auth/LoginModal.css */
 .login-form-container {
     padding: 0px 30px 30px 30px;
 }
@@ -69,7 +68,6 @@
     cursor: not-allowed;
 }
 
-/* Dodaj ovo u postojeći LoginModal.css */
 .modal-overlay {
     position: fixed;
     top: 0;

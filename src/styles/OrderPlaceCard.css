@@ -84,16 +84,16 @@
     background: linear-gradient(180deg, #2d5016 0%, #4CAF50 100%);
     border: none;
     border-radius: 8px;
-    padding: 12px; /* increased from 8px */
+    padding: 12px;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    font-size: 1.6rem; /* increased from 1.2rem */
-    min-width: 50px; /* increased from 36px */
-    height: 50px; /* increased from 36px */
+    font-size: 1.6rem;
+    min-width: 50px;
+    height: 50px;
 }
 
 .qr-code-btn:hover {
@@ -120,7 +120,6 @@
     height: 20px;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .order-place-card {
         border-radius: 8px;
@@ -148,14 +147,13 @@
     }
 
     .qr-code-btn {
-        font-size: 1.2rem; /* increased from 1rem */
-        min-width: 40px; /* increased from 32px */
-        height: 40px; /* increased from 32px */
-        padding: 8px; /* increased from 6px */
+        font-size: 1.2rem;
+        min-width: 40px;
+        height: 40px;
+        padding: 8px;
     }
 }
 
-/* Animation for icon */
 .order-place-card:hover .location-icon {
     transform: scale(1.1);
     transition: transform 0.3s ease;

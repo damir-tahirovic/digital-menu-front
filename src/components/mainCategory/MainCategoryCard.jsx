@@ -1,4 +1,3 @@
-// src/components/mainCategory/MainCategoryCard.jsx
 import '../../styles/MainCategoryCard.css';
 
 const MainCategoryCard = ({ mainCategory, onEdit }) => {
@@ -6,12 +5,10 @@ const MainCategoryCard = ({ mainCategory, onEdit }) => {
         if (mainCategory.media && mainCategory.media.length > 0) {
             return mainCategory.media[0].original_url;
         }
-        // Default slika ako nema uploadovane slike
         return 'src/assets/default.avif'
     };
 
     const handleCategoryClick = () => {
-        // Pozivamo onEdit funkciju iz parent komponente
         if (onEdit) {
             onEdit(mainCategory);
         }

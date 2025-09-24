@@ -1,4 +1,3 @@
-// src/components/navbar/Navbar.jsx
 import React, { useState } from 'react';
 import '../../styles/Navbar.css';
 import {TbBasket} from "react-icons/tb";

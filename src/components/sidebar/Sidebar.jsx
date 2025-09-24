@@ -1,4 +1,3 @@
-// src/components/sidebar/Sidebar.jsx
 import {useAuth} from '../../context/AuthContext';
 import {useState, useEffect} from 'react';
 import { updateMyProfile, changePassword } from '../../api/services/app/UserServices';
@@ -15,19 +14,17 @@ const Sidebar = ({activeSection, setActiveSection}) => {
     const menuItems = [
         {id: 'main_categories', label: 'Glavne kategorije', icon: ''},
         {id: 'categories', label: 'Kategorije', icon: ''},
-        {id: 'items', label: 'Stavke', icon: ''},
+        {id: 'items', label: 'Artikli', icon: ''},
         {id: 'order_places', label: 'Mjesta', icon: ''},
         {id: 'users', label: 'Korisnici', icon: ''},
         {id: 'orders', label: 'Porudžbine', icon: ''},
         {id: 'my_orders', label: 'Moje porudžbine', icon: ''},
     ];
 
-    // Close mobile menu when section changes
     useEffect(() => {
         setIsMobileMenuOpen(false);
     }, [activeSection]);
 
-    // Close mobile menu on outside click
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (isMobileMenuOpen && !event.target.closest('.sidebar') && !event.target.closest('.mobile-menu-toggle')) {
@@ -68,11 +65,10 @@ const Sidebar = ({activeSection, setActiveSection}) => {
         }
     };
 
-    // Filter menu items based on user role
     const filteredMenuItems = user?.role === 'admin'
-        ? menuItems.filter(item => item.id !== 'my_orders') // Admin sees all except "my_orders"
+        ? menuItems.filter(item => item.id !== 'my_orders')
         : user?.role === 'waiter'
-            ? menuItems.filter(item => item.id === 'orders' || item.id === 'my_orders') // Waiter sees both orders sections
+            ? menuItems.filter(item => item.id === 'orders' || item.id === 'my_orders')
             : [];
 
     const toggleMobileMenu = () => {
@@ -81,7 +77,6 @@ const Sidebar = ({activeSection, setActiveSection}) => {
 
     return (
         <>
-            {/* Mobile Menu Toggle Button */}
             <button
                 className="mobile-menu-toggle"
                 onClick={toggleMobileMenu}
@@ -94,13 +89,12 @@ const Sidebar = ({activeSection, setActiveSection}) => {
                 </div>
             </button>
 
-            {/* Mobile Overlay */}
             {isMobileMenuOpen && <div className="mobile-overlay" onClick={() => setIsMobileMenuOpen(false)}></div>}
 
             <div className={`sidebar ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
                 <div className="sidebar-header">
                     <div className="logo">
-                        <span>Admin Panel</span>
+                        <span>Dobrodošli!</span>
                     </div>
                 </div>
 
@@ -110,7 +104,7 @@ const Sidebar = ({activeSection, setActiveSection}) => {
                     </div>
                     <div className="user-details">
                         <span className="user-name">{user?.name} {user?.surname}</span>
-                        <span className="user-role">{user?.role}</span>
+                        <span className="user-role">{user?.role==='admin' ? 'Admin' : "Konobar"}</span>
                     </div>
                 </div>
 

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 export function useBasket() {
     const [basket, setBasket] = useState([]);
 
-    // učita korpu iz localStorage kad se app pokrene
     useEffect(() => {
         const saved = localStorage.getItem("basket");
         if (saved) {
@@ -11,14 +10,12 @@ export function useBasket() {
         }
     }, []);
 
-    // svaki put kad se korpa promijeni → sacuva je u localStorage
     useEffect(() => {
         localStorage.setItem("basket", JSON.stringify(basket));
     }, [basket]);
 
     const addToBasket = (item) => {
         setBasket((prev) => {
-            // ako već postoji isti item_type, povećaj količinu
             const existing = prev.find(
                 (i) => i.itemTypeId === item.itemTypeId
             );

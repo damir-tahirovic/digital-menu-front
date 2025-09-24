@@ -1,4 +1,3 @@
-// src/context/AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { logoutUser } from '../api/services/auth/AuthServices';
@@ -35,7 +34,6 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const login = (userData) => {
-        // čuvamo svaki field kao cookie (7 dana, možeš podesiti po želji)
         Cookies.set('token', userData.token, { expires: 7 });
         Cookies.set('name', userData.name, { expires: 7 });
         Cookies.set('surname', userData.surname, { expires: 7 });
@@ -60,7 +58,6 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Logout error:', error);
         } finally {
-            // brišemo sve cookies
             Cookies.remove('token');
             Cookies.remove('name');
             Cookies.remove('surname');
@@ -74,14 +71,12 @@ export const AuthProvider = ({ children }) => {
     };
 
     const updateUser = (updatedData) => {
-        // update cookie vrijednosti
         if (updatedData.name) Cookies.set('name', updatedData.name, { expires: 7 });
         if (updatedData.surname) Cookies.set('surname', updatedData.surname, { expires: 7 });
         if (updatedData.username) Cookies.set('username', updatedData.username, { expires: 7 });
         if (updatedData.email) Cookies.set('email', updatedData.email || '', { expires: 7 });
         if (updatedData.role) Cookies.set('role', updatedData.role, { expires: 7 });
 
-        // update state
         setUser((prevUser) => ({
             ...prevUser,
             ...updatedData,

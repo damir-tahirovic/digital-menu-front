@@ -59,7 +59,7 @@ export const categoryUpdate = async (id, data, imageFile) => {
         }
 
         formData.append('data', JSON.stringify(submitData));
-        formData.append('_method', 'PUT'); // Laravel method override
+        formData.append('_method', 'PUT');
 
         if (imageFile) {
             formData.append('image', imageFile);

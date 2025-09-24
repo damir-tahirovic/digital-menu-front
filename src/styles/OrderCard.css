@@ -1,4 +1,3 @@
-/* src/styles/OrderCard.css */
 .order-card {
     background: white;
     border-radius: 12px;
@@ -215,7 +214,6 @@
     background-clip: text;
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .order-card {
         border-radius: 8px;
@@ -269,7 +267,6 @@
     }
 }
 
-/* Animation for hover effects */
 .order-card:hover .order-place-name {
     transition: color 0.3s ease;
 }

@@ -156,7 +156,6 @@
     word-break: break-word;
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
     .item-container {
         padding: 15px 0;

@@ -46,7 +46,6 @@ export const itemCreate = async (data, imageFile) => {
 export const itemUpdate = async (id, data, imageFile) => {
     try {
         const formData = new FormData();
-        // Include the item data
         formData.append('data', JSON.stringify({
             name: data.name,
             category_id: data.category_id,
@@ -55,7 +54,6 @@ export const itemUpdate = async (id, data, imageFile) => {
             remove_current_image: data.remove_current_image
         }));
 
-        // Add image if provided
         if (imageFile) {
             formData.append('image', imageFile);
         }
@@ -63,7 +61,7 @@ export const itemUpdate = async (id, data, imageFile) => {
         if (data.remove_current_image) {
             formData.append('remove_current_image', 'true');
         }
-        formData.append('_method', 'PUT'); // Laravel method override
+        formData.append('_method', 'PUT');
 
         const response = await axiosInstance.post(
             `${BASE_URL}/item/${id}`,

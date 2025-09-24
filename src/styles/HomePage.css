@@ -2,12 +2,11 @@
     padding: 20px 0;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* Promijeni sa flex-start */
+    justify-content: space-between;
     gap: 16px;
-    width: 100%; /* Dodaj ovo */
+    width: 100%;
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
     .main-category-container {
         padding: 15px 0;

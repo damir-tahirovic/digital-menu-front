@@ -1,4 +1,3 @@
-// src/components/user/UserCard.jsx
 import '../../styles/OrderPlaceCard.css';
 import { FaUser } from "react-icons/fa6";
 import { BsPersonCircle } from "react-icons/bs";
@@ -12,8 +11,7 @@ const UserCard = ({ user, onEdit }) => {
     };
 
     const handleProfileClick = (e) => {
-        e.stopPropagation(); // Prevent triggering the card click
-        // Add profile action here if needed
+        e.stopPropagation();
         console.log('Profile clicked for user:', user.username);
     };
 

@@ -1,4 +1,3 @@
-/*!* src/styles/OrderDetails.css *!*/
 .od-order-details-overlay {
     position: fixed;
     top: 0;
@@ -345,7 +344,6 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     .od-order-details-overlay {
         padding: 10px;
@@ -417,7 +415,6 @@
     }
 }
 
-/* Smooth scrollbar */
 .od-modal-content::-webkit-scrollbar {
     width: 6px;
 }

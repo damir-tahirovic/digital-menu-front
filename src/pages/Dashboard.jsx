@@ -1,4 +1,3 @@
-// src/pages/Dashboard.jsx
 import {useAuth} from '../context/AuthContext';
 import {useEffect, useState} from 'react';
 import Sidebar from '../components/sidebar/Sidebar';
@@ -37,7 +36,6 @@ const Dashboard = ({setNavbarTitle}) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Modal state
     const [modalState, setModalState] = useState({
         isOpen: false,
         actionType: null, // 'create', 'update', 'delete'
@@ -47,13 +45,12 @@ const Dashboard = ({setNavbarTitle}) => {
 
     useEffect(() => {
         if (user?.role === 'waiter') {
-            setActiveSection('orders'); // Default section for waiters
+            setActiveSection('orders');
         } else {
-            setActiveSection('main_categories'); // Default section for other roles
+            setActiveSection('main_categories');
         }
     }, [user]);
 
-    // Modal functions
     const openModal = (actionType, entityType, initialData = null) => {
         setModalState({
             isOpen: true,
@@ -72,7 +69,6 @@ const Dashboard = ({setNavbarTitle}) => {
         });
     };
 
-    // Handler functions for modal
     const handleAddMainCategory = () => {
         openModal('create', 'main_category');
     };
@@ -113,7 +109,6 @@ const Dashboard = ({setNavbarTitle}) => {
         openModal('update', 'user', user);
     };
 
-    // Modal submit handler
     const handleModalSubmit = async (formData, imageFile) => {
         const {actionType, entityType} = modalState;
 
@@ -124,27 +119,27 @@ const Dashboard = ({setNavbarTitle}) => {
                         await mainCategoryCreate(formData, imageFile);
                         toast.success('Glavna kategorija je uspješno kreirana!');
                         console.log('Creating main category:', formData);
-                        fetchMainCategories(); // Refresh data
+                        fetchMainCategories();
                     } else if (entityType === 'category') {
                         await categoryCreate(formData, imageFile);
                         toast.success('Kategorija je uspješno kreirana!');
                         console.log('Creating category:', formData);
-                        fetchMainCategories(); // Refresh data
+                        fetchMainCategories();
                     } else if (entityType === 'item') {
                         await itemCreate(formData, imageFile);
-                        toast.success('Stavka je uspješno kreirana!');
+                        toast.success('Artikal je uspješno kreirana!');
                         console.log('Creating item:', formData);
-                        fetchCategories(); // Refresh data
+                        fetchCategories();
                     } else if (entityType === 'order_place') {
                         await orderPlaceCreate(formData);
                         toast.success('Mjesto je uspješno kreirano!');
                         console.log('Creating order place:', formData);
-                        fetchOrderPlaces(); // Refresh data
+                        fetchOrderPlaces();
                     } else if (entityType === 'user') {
                         await registerUser(formData);
                         toast.success('Korisnik je uspješno kreiran!');
                         console.log('Creating user:', formData);
-                        fetchUsers(); // Refresh data
+                        fetchUsers();
                     }
                     break;
 
@@ -153,48 +148,45 @@ const Dashboard = ({setNavbarTitle}) => {
                         await mainCategoryUpdate(modalState.initialData.id, formData, imageFile);
                         toast.success('Glavna kategorija je uspješno azurirana!');
                         console.log('Updating main category:', formData);
-                        fetchMainCategories(); // Refresh data
+                        fetchMainCategories();
                     } else if (entityType === 'category') {
                         await categoryUpdate(modalState.initialData.id, formData, imageFile);
                         toast.success('Kategorija je uspješno azurirana!');
                         console.log('Updating category:', formData);
-                        fetchMainCategories(); // Refresh data
+                        fetchMainCategories();
                     } else if (entityType === 'item') {
                         await itemUpdate(modalState.initialData.id, formData, imageFile);
-                        toast.success('Stavka je uspješno azurirana!');
+                        toast.success('Artikal je uspješno azurirana!');
                         console.log('Updating item:', formData);
-                        fetchCategories(); // Refresh data
+                        fetchCategories();
                     } else if (entityType === 'order_place') {
                         await orderPlaceUpdate(modalState.initialData.id, formData);
                         toast.success('Mjesto je uspješno azurirano!');
                         console.log('Updating order place:', formData);
-                        fetchOrderPlaces(); // Refresh data
+                        fetchOrderPlaces();
                     } else if (entityType === 'user') {
                         await userUpdate(modalState.initialData.id, formData);
                         toast.success('Korisnik je uspješno azuriran!');
                         console.log('Updating user:', formData);
-                        fetchUsers(); // Refresh data
+                        fetchUsers();
                     }
                     break;
 
                 case 'delete':
                     if (entityType === 'main_category') {
-                        // await deleteMainCategory(modalState.initialData.id);
                         console.log('Deleting main category:', modalState.initialData.id);
-                        fetchMainCategories(); // Refresh data
+                        fetchMainCategories();
                     } else if (entityType === 'category') {
-                        // await deleteCategory(modalState.initialData.id);
                         console.log('Deleting category:', modalState.initialData.id);
-                        fetchMainCategories(); // Refresh data
+                        fetchMainCategories();
                     } else if (entityType === 'item') {
-                        // await deleteItem(modalState.initialData.id);
                         console.log('Deleting item:', modalState.initialData.id);
-                        fetchCategories(); // Refresh data
+                        fetchCategories();
                     } else if (entityType === 'order_place') {
                         await orderPlaceDelete(modalState.initialData.id);
                         toast.success('Mjesto je uspješno obrisano!');
                         console.log('Deleting order place:', modalState.initialData.id);
-                        fetchOrderPlaces(); // Refresh data
+                        fetchOrderPlaces();
                     }
                     break;
             }
@@ -204,7 +196,6 @@ const Dashboard = ({setNavbarTitle}) => {
         }
     };
 
-    // Funkcija za fetch main kategorija
     const fetchMainCategories = async () => {
         setLoading(true);
         setError(null);
@@ -220,7 +211,6 @@ const Dashboard = ({setNavbarTitle}) => {
         }
     };
 
-    // Funkcija za fetch kategorija
     const fetchCategories = async () => {
         setLoading(true);
         setError(null);
@@ -296,57 +286,85 @@ const Dashboard = ({setNavbarTitle}) => {
         }
     }
 
-    // Učitaj kategorije kada se odabere sekcija
     useEffect(() => {
         if (activeSection === 'main_categories') {
             fetchMainCategories();
         } else if (activeSection === 'categories') {
-            fetchMainCategories(); // Potrebno za grupiranje
+            fetchMainCategories();
         } else if (activeSection === 'items') {
-            fetchCategories(); // Učitavamo kategorije sa item-ima
+            fetchCategories();
         } else if (activeSection === 'order_places') {
             fetchOrderPlaces();
         } else if (activeSection === 'users') {
             fetchUsers();
         } else if (activeSection === 'orders') {
             fetchOrders();
-        } else if(activeSection === 'my_orders') {
+        } else if (activeSection === 'my_orders') {
             fetchMyOrders();
         }
     }, [activeSection]);
 
-    // Render glavnih kategorija
+    useEffect(() => {
+        const handleOrderEvent = (e) => {
+            console.log("📥 Primljen order event u Dashboard:", e.detail);
+            fetchOrders();
+        };
+
+        window.addEventListener("order-received", handleOrderEvent);
+
+        return () => {
+            window.removeEventListener("order-received", handleOrderEvent);
+        };
+    }, []);
+
     const renderMainCategories = () => {
+        const headerContent = (
+            <div className="main-categories-header">
+                <h2 style={{color: 'black'}}>Glavne kategorije</h2>
+                <button className="btn-add-category" onClick={handleAddMainCategory}>
+                    + Dodaj Glavnu kategoriju
+                </button>
+            </div>
+        );
+
         if (loading) {
-            return <div className="loading-message">Učitavanje glavnih kategorija...</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="loading-message">Učitavanje glavnih kategorija...</div>
+                </div>
+            );
         }
 
         if (error) {
             return (
-                <div className="error-message">
-                    {error}
-                    <button
-                        onClick={fetchMainCategories}
-                        style={{marginLeft: '10px', padding: '5px 10px'}}
-                    >
-                        Pokušaj ponovo
-                    </button>
+                <div>
+                    {headerContent}
+                    <div className="error-message">
+                        {error}
+                        <button
+                            onClick={fetchMainCategories}
+                            style={{marginLeft: '10px', padding: '5px 10px'}}
+                        >
+                            Pokušaj ponovo
+                        </button>
+                    </div>
                 </div>
             );
         }
 
         if (mainCategories.length === 0) {
-            return <div className="no-categories-message">Nema dostupnih glavnih kategorija</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="no-categories-message">Nema dostupnih glavnih kategorija</div>
+                </div>
+            );
         }
 
         return (
             <div>
-                <div className="main-categories-header">
-                    <h2>Glavne kategorije</h2>
-                    <button className="btn-add-category" onClick={handleAddMainCategory}>
-                        + Dodaj Glavnu kategoriju
-                    </button>
-                </div>
+                {headerContent}
                 <div className="main-categories-grid">
                     {mainCategories.map(mainCategory => (
                         <MainCategoryCard
@@ -360,48 +378,67 @@ const Dashboard = ({setNavbarTitle}) => {
         );
     };
 
-    // Render kategorija grupisanih po glavnim kategorijama
     const renderCategories = () => {
+        const headerContent = (
+            <div className="main-categories-header">
+                <h2 style={{color: 'black'}}>Kategorije</h2>
+                <button className="btn-add-category" onClick={handleAddCategory}>
+                    + Dodaj Kategoriju
+                </button>
+            </div>
+        );
+
         if (loading) {
-            return <div className="loading-message">Učitavanje kategorija...</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="loading-message">Učitavanje kategorija...</div>
+                </div>
+            );
         }
 
         if (error) {
             return (
-                <div className="error-message">
-                    {error}
-                    <button
-                        onClick={fetchMainCategories}
-                        style={{marginLeft: '10px', padding: '5px 10px'}}
-                    >
-                        Pokušaj ponovo
-                    </button>
+                <div>
+                    {headerContent}
+                    <div className="error-message">
+                        {error}
+                        <button
+                            onClick={fetchMainCategories}
+                            style={{marginLeft: '10px', padding: '5px 10px'}}
+                        >
+                            Pokušaj ponovo
+                        </button>
+                    </div>
                 </div>
             );
         }
 
         if (mainCategories.length === 0) {
-            return <div className="no-categories-message">Nema dostupnih kategorija</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="no-categories-message">Nema dostupnih kategorija</div>
+                </div>
+            );
         }
 
-        // Filtriraj glavne kategorije koje imaju kategorije
         const mainCategoriesWithCategories = mainCategories.filter(
             mainCategory => mainCategory.categories && mainCategory.categories.length > 0
         );
 
         if (mainCategoriesWithCategories.length === 0) {
-            return <div className="no-categories-message">Nema dostupnih kategorija</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="no-categories-message">Nema dostupnih kategorija</div>
+                </div>
+            );
         }
 
         return (
             <div>
-                <div className="main-categories-header">
-                    <h2>Kategorije</h2>
-                    <button className="btn-add-category" onClick={handleAddCategory}>
-                        + Dodaj Kategoriju
-                    </button>
-                </div>
-
+                {headerContent}
                 {mainCategoriesWithCategories.map(mainCategory => (
                     <div key={mainCategory.id} className="category-section">
                         <div className="category-section-header">
@@ -426,48 +463,67 @@ const Dashboard = ({setNavbarTitle}) => {
         );
     };
 
-    // Render stavki grupisanih po kategorijama
     const renderItems = () => {
+        const headerContent = (
+            <div className="main-categories-header">
+                <h2 style={{color: 'black'}}>Artikli</h2>
+                <button className="btn-add-category" onClick={handleAddItem}>
+                    + Dodaj Artikal
+                </button>
+            </div>
+        );
+
         if (loading) {
-            return <div className="loading-message">Učitavanje stavki...</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="loading-message">Učitavanje Artikala...</div>
+                </div>
+            );
         }
 
         if (error) {
             return (
-                <div className="error-message">
-                    {error}
-                    <button
-                        onClick={fetchCategories}
-                        style={{marginLeft: '10px', padding: '5px 10px'}}
-                    >
-                        Pokušaj ponovo
-                    </button>
+                <div>
+                    {headerContent}
+                    <div className="error-message">
+                        {error}
+                        <button
+                            onClick={fetchCategories}
+                            style={{marginLeft: '10px', padding: '5px 10px'}}
+                        >
+                            Pokušaj ponovo
+                        </button>
+                    </div>
                 </div>
             );
         }
 
         if (categories.length === 0) {
-            return <div className="no-categories-message">Nema dostupnih stavki</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="no-categories-message">Nema dostupnih artikala</div>
+                </div>
+            );
         }
 
-        // Filtriraj kategorije koje imaju stavke
         const categoriesWithItems = categories.filter(
             category => category.items && category.items.length > 0
         );
 
         if (categoriesWithItems.length === 0) {
-            return <div className="no-categories-message">Nema dostupnih stavki</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="no-categories-message">Nema dostupnih artikala</div>
+                </div>
+            );
         }
 
         return (
             <div>
-                <div className="main-categories-header">
-                    <h2>Stavke</h2>
-                    <button className="btn-add-category" onClick={handleAddItem}>
-                        + Dodaj Stavku
-                    </button>
-                </div>
-
+                {headerContent}
                 {categoriesWithItems.map(category => (
                     <div key={category.id} className="category-section">
                         <div className="category-section-header">
@@ -493,36 +549,53 @@ const Dashboard = ({setNavbarTitle}) => {
     };
 
     const renderOrderPlaces = () => {
+        const headerContent = (
+            <div className="main-categories-header">
+                <h2 style={{color: 'black'}}>Mjesta</h2>
+                <button className="btn-add-category" onClick={handleAddOrderPlace}>
+                    + Dodaj Mjesto
+                </button>
+            </div>
+        );
+
         if (loading) {
-            return <div className="loading-message">Učitavanje mjesta...</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="loading-message">Učitavanje mjesta...</div>
+                </div>
+            );
         }
 
         if (error) {
             return (
-                <div className="error-message">
-                    {error}
-                    <button
-                        onClick={fetchOrderPlaces}
-                        style={{marginLeft: '10px', padding: '5px 10px'}}
-                    >
-                        Pokušaj ponovo
-                    </button>
+                <div>
+                    {headerContent}
+                    <div className="error-message">
+                        {error}
+                        <button
+                            onClick={fetchOrderPlaces}
+                            style={{marginLeft: '10px', padding: '5px 10px'}}
+                        >
+                            Pokušaj ponovo
+                        </button>
+                    </div>
                 </div>
             );
         }
 
         if (orderPlaces.length === 0) {
-            return <div className="no-categories-message">Nema dostupnih mjesta</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="no-categories-message">Nema dostupnih mjesta</div>
+                </div>
+            );
         }
 
         return (
             <div>
-                <div className="main-categories-header">
-                    <h2>Mjesta</h2>
-                    <button className="btn-add-category" onClick={handleAddOrderPlace}>
-                        + Dodaj Mjesto
-                    </button>
-                </div>
+                {headerContent}
                 <div className="main-categories-grid">
                     {orderPlaces.map(orderPlace => (
                         <OrderPlaceCard
@@ -534,39 +607,56 @@ const Dashboard = ({setNavbarTitle}) => {
                 </div>
             </div>
         );
-    }
+    };
 
     const renderUsers = () => {
+        const headerContent = (
+            <div className="main-categories-header">
+                <h2 style={{color: 'black'}}>Korisnici</h2>
+                <button className="btn-add-category" onClick={handleAddUser}>
+                    + Dodaj Korisnika
+                </button>
+            </div>
+        );
+
         if (loading) {
-            return <div className="loading-message">Učitavanje korisnika...</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="loading-message">Učitavanje korisnika...</div>
+                </div>
+            );
         }
 
         if (error) {
             return (
-                <div className="error-message">
-                    {error}
-                    <button
-                        onClick={fetchUsers}
-                        style={{marginLeft: '10px', padding: '5px 10px'}}
-                    >
-                        Pokušaj ponovo
-                    </button>
+                <div>
+                    {headerContent}
+                    <div className="error-message">
+                        {error}
+                        <button
+                            onClick={fetchUsers}
+                            style={{marginLeft: '10px', padding: '5px 10px'}}
+                        >
+                            Pokušaj ponovo
+                        </button>
+                    </div>
                 </div>
             );
         }
 
         if (users.length === 0) {
-            return <div className="no-categories-message">Nema dostupnih korisnika</div>;
+            return (
+                <div>
+                    {headerContent}
+                    <div className="no-categories-message">Nema dostupnih korisnika</div>
+                </div>
+            );
         }
 
         return (
             <div>
-                <div className="main-categories-header">
-                    <h2>Korisnici</h2>
-                    <button className="btn-add-category" onClick={handleAddUser}>
-                        + Dodaj Korisnika
-                    </button>
-                </div>
+                {headerContent}
                 <div className="main-categories-grid">
                     {users.map(user => (
                         <UserCard
@@ -578,7 +668,7 @@ const Dashboard = ({setNavbarTitle}) => {
                 </div>
             </div>
         );
-    }
+    };
 
     const renderOrders = () => {
         if (loading) {
@@ -606,7 +696,7 @@ const Dashboard = ({setNavbarTitle}) => {
         return (
             <div>
                 <div className="main-categories-header">
-                    <h2>Porudžbine</h2>
+                    <h2 style={{color: 'black'}}>Porudžbine</h2>
                 </div>
                 <div className="main-categories-grid">
                     {orders.map(order => (
@@ -647,7 +737,7 @@ const Dashboard = ({setNavbarTitle}) => {
         return (
             <div>
                 <div className="main-categories-header">
-                    <h2>Porudžbine</h2>
+                    <h2 style={{color: 'black'}}>Porudžbine</h2>
                 </div>
                 <div className="main-categories-grid">
                     {myOrders.map(myOrder => (
@@ -712,7 +802,11 @@ const Dashboard = ({setNavbarTitle}) => {
     };
 
     const handleTakeOrder = (orderId) => {
-        setActiveSection('my_orders');
+        if (activeSection !== 'my_orders') {
+            setActiveSection('my_orders');
+        } else {
+            fetchMyOrders();
+        }
         fetchOrders();
     };
 
@@ -723,7 +817,6 @@ const Dashboard = ({setNavbarTitle}) => {
                 {renderContent()}
             </div>
 
-            {/* Universal Modal */}
             <UniversalModal
                 isOpen={modalState.isOpen}
                 onClose={closeModal}

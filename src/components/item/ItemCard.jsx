@@ -1,4 +1,3 @@
-// src/components/item/ItemCard.jsx
 import '../../styles/MainCategoryCard.css';
 
 const ItemCard = ({ item, categoryName, onEdit }) => {
@@ -6,18 +5,15 @@ const ItemCard = ({ item, categoryName, onEdit }) => {
         if (item.media && item.media.length > 0) {
             return item.media[0].original_url;
         }
-        // Default slika ako nema uploadovane slike
         return 'src/assets/default.avif';
     };
 
     const handleItemClick = () => {
-        // Pozivamo onEdit funkciju iz parent komponente
         if (onEdit) {
             onEdit(item);
         }
     };
 
-    // Funkcija za formatiranje cene
     const formatPrice = (price) => {
         return new Intl.NumberFormat('sr-RS', {
             style: 'currency',
@@ -26,7 +22,6 @@ const ItemCard = ({ item, categoryName, onEdit }) => {
         }).format(price);
     };
 
-    // Prikazuje cene iz item_types
     const renderPrices = () => {
         if (!item.item_types || item.item_types.length === 0) {
             return (
@@ -41,12 +36,10 @@ const ItemCard = ({ item, categoryName, onEdit }) => {
             return (
                 <div className="price-single">
                     <span className="price">{formatPrice(itemType.price)}</span>
-                    {/*<span className="quantity">({itemType.quantity}{itemType.unit})</span>*/}
                 </div>
             );
         }
 
-        // Ako ima više tipova, prikaži range cena
         const prices = item.item_types.map(type => type.price);
         const minPrice = Math.min(...prices);
         const maxPrice = Math.max(...prices);
@@ -56,7 +49,6 @@ const ItemCard = ({ item, categoryName, onEdit }) => {
                 <span className="price">
                     {formatPrice(minPrice)} - {formatPrice(maxPrice)}
                 </span>
-                {/*<span className="types-count">({item.item_types.length} opcija/e)</span>*/}
             </div>
         );
     };
@@ -72,7 +64,6 @@ const ItemCard = ({ item, categoryName, onEdit }) => {
                         e.target.src = '/images/default-category.png';
                     }}
                 />
-                {/* Badge za broj tipova ako ima više od jednog */}
                 {item.item_types && item.item_types.length > 1 && (
                     <div className="types-badge">
                         {item.item_types.length} opcije
@@ -82,17 +73,14 @@ const ItemCard = ({ item, categoryName, onEdit }) => {
             <div className="category-content item-content">
                 <h3 className="category-name item-name">{item.name}</h3>
 
-                {/* Opis itema ako postoji */}
                 <p className="item-description">
                     {item.description ? item.description : 'N/A'}
                 </p>
 
-                {/* Prikaz cena */}
                 <div className="item-pricing">
                     {renderPrices()}
                 </div>
 
-                {/* Lista tipova ako ima više od jednog */}
                 <div className="item-types-preview">
                     {item.item_types && item.item_types.length > 0 ? (
                         <>

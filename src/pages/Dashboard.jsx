@@ -109,6 +109,17 @@ const Dashboard = ({setNavbarTitle}) => {
         openModal('update', 'user', user);
     };
 
+    const handleDeleteOrderPlace = async (orderPlace) => {
+        try {
+            await orderPlaceDelete(orderPlace.id);
+            toast.success('Mjesto je uspješno obrisano!');
+            fetchOrderPlaces();
+        } catch (error) {
+            console.error('Error deleting order place:', error);
+            toast.error('Greška prilikom brisanja mjesta');
+        }
+    };
+
     const handleModalSubmit = async (formData, imageFile) => {
         const {actionType, entityType} = modalState;
 
@@ -730,7 +741,7 @@ const Dashboard = ({setNavbarTitle}) => {
             );
         }
 
-        if (orders.length === 0) {
+        if (myOrders.length === 0) {
             return <div className="no-categories-message">Nema dostupnih porudžbina</div>;
         }
 
@@ -821,6 +832,7 @@ const Dashboard = ({setNavbarTitle}) => {
                 isOpen={modalState.isOpen}
                 onClose={closeModal}
                 onSubmit={handleModalSubmit}
+                onDelete={handleDeleteOrderPlace}
                 actionType={modalState.actionType}
                 entityType={modalState.entityType}
                 initialData={modalState.initialData}

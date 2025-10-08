@@ -34,12 +34,12 @@ function AppContent() {
         const echo = new Echo({
             broadcaster: 'reverb',
             key: 'otgeqph5dewzab5a8yki',
-            wsHost: '192.168.1.101',
+            wsHost: '192.168.1.106',
             wsPort: '8081',
             forceTLS: false,
             encrypted: false,
             enabledTransports: ['ws'],
-            authEndpoint: 'http://192.168.1.101:8000/broadcasting/auth',
+            authEndpoint: 'http://192.168.1.106:8000/broadcasting/auth',
             auth: {
                 headers: {
                     Authorization: `Bearer ${TOKEN}`,

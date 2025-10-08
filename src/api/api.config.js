@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-export const BASE_URL = "http://192.168.1.101:8000/api"
+export const BASE_URL = "http://192.168.1.106:8000/api"
 
 export const axiosInstance = axios.create({
     baseURL: BASE_URL,

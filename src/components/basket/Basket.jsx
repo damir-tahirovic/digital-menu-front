@@ -12,9 +12,14 @@ const Basket = ({ isOpen, onClose }) => {
     const total = basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const handleCheckout = async () => {
+        if (basket.length === 0) {
+            alert('Korpa je prazna! Dodajte artikle u korpu prije kreiranja porudžbine .');
+            return;
+        }
+
         const orderPlaceCode = Cookies.get('order_place_code');
         if (!orderPlaceCode) {
-            alert('Kod mjesta narudžbe nije pronađen. Molimo skenirajte QR kod.');
+            alert('Kod mjesta porudžbine nije pronađen. Molimo skenirajte QR kod.');
             return;
         }
 
@@ -31,9 +36,9 @@ const Basket = ({ isOpen, onClose }) => {
             const order = await createOrder(orderData);
             console.log('Order created successfully:', order);
             clearBasket();
-            alert('Narudžba je uspješno kreirana!');
+            alert('Porudžbina je uspješno kreirana!');
         } catch (error) {
-            alert('Greška prilikom kreiranja narudžbe: ' + (error.response?.data || error.message));
+            alert('Greška prilikom kreiranja porudžbine: ' + (error.response?.data || error.message));
         }
     };
 

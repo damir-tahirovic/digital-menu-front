@@ -10,7 +10,7 @@ const BasketItem = ({ item, removeFromBasket }) => {
             <span className="basket-item-price">
                 {(item.price * item.quantity).toFixed(2)}€
             </span>
-            <button onClick={() => removeFromBasket(item.itemTypeId)}>❌</button>
+            <button onClick={() => removeFromBasket(item.itemTypeId)}>X</button>
         </li>
     );
 };

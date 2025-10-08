@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { FaTrash } from 'react-icons/fa';
 import '../../styles/UniversalModal.css';
 
 const UniversalModal = ({
                             isOpen,
                             onClose,
                             onSubmit,
+                            onDelete,
                             actionType,
                             entityType,
                             initialData = null,
@@ -91,6 +93,25 @@ const UniversalModal = ({
         }
     };
 
+    const handleDelete = () => {
+        if (!onDelete) return;
+
+        if (window.confirm(`Da li ste sigurni da želite da obrišete "${initialData?.name}"?`)) {
+            setLoading(true);
+            onDelete(initialData)
+                .then(() => {
+                    onClose();
+                })
+                .catch((error) => {
+                    console.error('Error deleting:', error);
+                    setError(error.response?.data?.message || 'Greška prilikom brisanja');
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
+    };
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -110,7 +131,8 @@ const UniversalModal = ({
     const handleRemoveCurrentImage = () => {
         setFormData(prev => ({
             ...prev,
-            removeCurrentImage: true
+            removeCurrentImage: true,
+            remove_current_image: true
         }));
     };
 
@@ -118,6 +140,7 @@ const UniversalModal = ({
         setFormData(prev => {
             const newFormData = { ...prev };
             delete newFormData.removeCurrentImage;
+            delete newFormData.remove_current_image;
             return newFormData;
         });
     };
@@ -938,6 +961,17 @@ const UniversalModal = ({
         <div className="modal-overlay" onClick={handleOverlayClick}>
             <div className="modal-container">
                 <div className="modal-header">
+                    {entityType === 'order_place' && actionType === 'update' && (
+                        <button
+                            type="button"
+                            className="btn-delete-action"
+                            onClick={handleDelete}
+                            disabled={loading}
+                            title="Obriši mjesto"
+                        >
+                            <FaTrash />
+                        </button>
+                    )}
                     <button
                         className="modal-close-btn"
                         onClick={onClose}
